@@ -1,0 +1,88 @@
+.crt-wrap {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  background: var(--bg);
+}
+
+.crt-frame {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: var(--panel);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 0 0 24px rgba(185, 246, 202, .12), inset 0 0 8px rgba(185, 246, 202, .18);
+  padding: 16px 14px 12px;
+}
+
+.crt-title {
+  font-size: clamp(20px, 6vw, 28px);
+  letter-spacing: 2px;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.crt-form {
+  display: grid;
+  gap: var(--gap);
+}
+
+/* Usa .field para agrupar label + input de forma consistente */
+.crt-form .field label {
+  font-size: clamp(14px, 3.8vw, 18px);
+  color: var(--ink-dim);
+  letter-spacing: 1px;
+}
+
+/* Botón: solo aplicar full-width; el estilo base viene del global */
+.crt-btn {
+  width: 100%;
+  min-height: 48px;
+  font-size: clamp(16px, 4.8vw, 20px);
+}
+
+.crt-footer {
+  margin-top: 14px;
+  font-size: clamp(12px, 3.6vw, 16px);
+  color: var(--ink-dim);
+  text-align: right;
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+  letter-spacing: 1px;
+}
+
+/* Scanlines decorativas */
+.crt-scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 50% 15%, rgba(185, 246, 202, .06), transparent 40%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .03) 1px, transparent 2px);
+  mix-blend-mode: screen;
+  opacity: .35;
+}
+
+@media (min-width:480px) {
+  .crt-frame {
+    padding: 18px 16px 14px;
+  }
+}
+
+@media (min-width:768px) {
+  .crt-frame {
+    max-width: 520px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .crt-scanlines {
+    opacity: .2;
+  }
+}

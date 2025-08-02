@@ -1,0 +1,163 @@
+/* Fuente retro */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* ---------- Tokens / Variables ---------- */
+:root{
+  --bg: #0d0f0f;         /* fondo general */
+  --panel: #131515;      /* paneles/tarjetas */
+  --ink: #b9f6ca;        /* verde fósforo */
+  --ink-dim: #8ad7ae;    /* verde atenuado */
+  --ink-err: #ff7676;    /* errores/alertas */
+  --line: #2a2f2f;       /* líneas/bordes sutiles */
+
+  --radius: 10px;        /* radio global */
+  --gap: 12px;           /* espacio por defecto */
+}
+
+/* ---------- Reset suave ---------- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'VT323', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Tipografía / enlaces ---------- */
+h1,h2,h3,h4 { margin: 0 0 .5rem; letter-spacing: 2px; }
+p { margin: .5rem 0; }
+a{
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--ink-dim);
+}
+a:hover { text-shadow: 0 0 6px rgba(185,246,202,.5); }
+
+/* ---------- Utilidades de layout ---------- */
+.container{ max-width: 1080px; margin: 0 auto; padding: 16px; }
+.stack{ display: flex; flex-direction: column; gap: var(--gap); }
+.grid{ display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.center{ display:grid; place-items:center; }
+
+/* Panel reutilizable */
+.panel{
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 0 0 24px rgba(185,246,202,.12), inset 0 0 8px rgba(185,246,202,.18);
+  padding: 16px;
+}
+
+/* ---------- Formularios (base coherente) ---------- */
+label{
+  color: var(--ink-dim);
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
+input, select, textarea{
+  width: 100%;
+  background: transparent;
+  color: var(--ink);
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 4px;
+  font-size: 20px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  min-height: 44px; /* tamaño táctil mínimo */
+}
+
+input::placeholder, textarea::placeholder{
+  color: rgba(185,246,202,.45);
+}
+
+input:focus, select:focus, textarea:focus{
+  border-bottom-color: var(--ink);
+  box-shadow: 0 2px 0 0 var(--ink);
+  text-shadow: 0 0 6px rgba(185,246,202,.55);
+}
+
+/* Grupo de campo reutilizable */
+.field { display: grid; gap: 6px; }
+
+/* ---------- Botones globales ---------- */
+/* Estilo para <button> y para quienes quieran usar .btn en <a> o <div> */
+button, .btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 10px 14px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--ink);
+
+  background: transparent;          /* ← sin fondo */
+  border: 2px solid var(--ink);     /* ← solo borde */
+  border-radius: var(--radius);     /* ← borde redondeado */
+
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+button:hover, .btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(185,246,202,.28);
+}
+
+button:active, .btn:active{
+  transform: translateY(0);
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+button:disabled, .btn:disabled{
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* Modificadores de botón */
+.btn--block { width: 100%; }
+.btn--sm { font-size: 18px; padding: 8px 12px; }
+.btn--lg { font-size: 22px; padding: 12px 16px; }
+
+/* ---------- Estados / mensajes ---------- */
+.help { color: var(--ink-dim); font-size: 16px; }
+.error { color: var(--ink-err); font-size: 16px; }
+
+/* ---------- Accesibilidad ---------- */
+:focus-visible{
+  outline: 2px var(--ink);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+/* ---------- Efecto global (opcional) ---------- */
+/* Scanlines sutiles estilo CRT */
+body::before{
+  content: "";
+  position: fixed; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(185,246,202,.06), transparent 40%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 2px);
+  mix-blend-mode: screen;
+  opacity: .4;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px){
+  :root{ --gap: 10px; }
+  .container{ padding: 12px; }
+  button, .btn{ font-size: 18px; padding: 9px 12px; }
+  input, textarea{ font-size: 18px; padding: 8px 3px; }
+}
+
+/* Menos animación si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce){
+  button, .btn, input, select, textarea { transition: none; }
+  body::before{ opacity: .25; }
+}
